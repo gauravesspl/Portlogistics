@@ -27,15 +27,13 @@ class ETagResponse
                 $key = $getData['key'];
                 $requestDataCache = Cache::get($key);
                 $requestJson = json_encode($requestDataCache);
-                $etag = md5($requestJson);
+                $etag = bcrypt($requestJson);
                 $requestEtag = str_replace('"', '', $request->getETags());
                 // Check to see if Etag has changed
                 if ($requestEtag && $requestEtag[0] == $etag)
                 {
                     $response->setNotModified();
                 }
-                Log::info($etag);
-                Log::info($requestEtag);
                 // Set Etag
                 $response->setEtag($etag);
             }
