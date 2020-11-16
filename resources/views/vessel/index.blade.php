@@ -37,7 +37,8 @@
                     </div>
                            
                     <div class="col-md-12 table p-4">
-                        <table summary="Vessels Details" id="dtVessel" class="table  table-striped">
+                        <table id="dtVessel" class="table  table-striped">
+                        <caption class="d-none">Vessel List</caption>
                             <thead style="text-align: center;">
                                 <tr>
                                     <th scope="column">Vessel</th>
@@ -58,7 +59,7 @@
                                 <td>{{ $result->beam }}</td>   
                                 <td>{{ $result->draft }}</td>
                                 <td hidden="">{{ $result->id }}</td>    
-                                <td align="center">
+                                <td style="text-align: center;">
                                         <i class='fas fa-edit text-success fa-2x  tooltips edit' data-placement='top' title='Update Vessel' style='cursor:pointer' aria-hidden="true"></i> &nbsp;&nbsp;
                                         <i class='fas fa-trash fa-2x  text-danger tooltips delete' data-placement='top' title='Delete Vessel' style='cursor:pointer' aria-hidden="true"></i>
                                 </td>  
