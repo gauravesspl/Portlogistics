@@ -6,7 +6,11 @@ use App\Http\Requests\JsonRequest;
 
 class VesselRequest extends JsonRequest
 {
-
+    protected $nullable_numeric;
+    public function __construct()
+    {
+        $this->nullable_numeric = 'nullable|numeric';
+    }
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -28,9 +32,9 @@ class VesselRequest extends JsonRequest
             return [
                 'name'          => 'required|max:50|unique:vessels,name,' . $this->id,
                 'description'   => 'nullable|max:150|',
-                'loa'           => 'nullable|numeric',
-                'beam'          => 'nullable|numeric',
-                'draft'         => 'nullable|numeric',
+                'loa'           => $this->nullable_numeric,
+                'beam'          => $this->nullable_numeric,
+                'draft'         => $this->nullable_numeric,
             ];
         }
         if ($this->isMethod('delete') || $this->isMethod('get')) {
@@ -44,9 +48,9 @@ class VesselRequest extends JsonRequest
                 'id' => 'integer|gt:0',
                 'name'          => 'required|max:50|unique:vessels,name,' . $this->id,
                 'description'   => 'nullable|max:150|',
-                'loa'           => 'nullable|numeric',
-                'beam'          => 'nullable|numeric',
-                'draft'         => 'nullable|numeric'
+                'loa'           => $this->nullable_numeric,
+                'beam'          => $this->nullable_numeric,
+                'draft'         => $this->nullable_numeric
             ];
         }
     }
