@@ -156,7 +156,7 @@
 
                                               
                                                 <a href="{{ url('truck')}}" class="nav-link {{ request()->is('truck') ? 'active' : ''}}">
-                                                    <i class=" nav-icon fa fa-truck"></i>
+                                                    <em class=" nav-icon fa fa-truck"></em>
 
                                                     <p>Trucks</p>
                                                 </a>
@@ -166,7 +166,7 @@
                                             <li class="nav-item {{ request()->is('truck-company') ? 'menu-open' : ''}} ">
 
                                                 <a href="{{ url('truck-company')}}" class="nav-link {{ request()->is('truck-company') ? 'active' : ''}}">
-                                                    <i class=" nav-icon fas fa-truck"></i>
+                                                    <em class=" nav-icon fas fa-truck"></em>
 
                                                     <p>Trucking Company</p>
                                                 </a>
@@ -187,7 +187,7 @@
 
                                             <li class="nav-item  {{ request()->is('cache/clear') ? 'menu-open' : ''}} ">
                                                 <a href="{{url('cache/clear')}}" class="nav-link {{ request()->is('cache/clear') ? 'active' : ''}}">                                       
-                                                    <i class="nav-icon fas fa-cog"></i>
+                                                    <em class="nav-icon fas fa-cog"></em>
 
                                                     <p>Cache Settings</p>
                                                 </a>
