@@ -37,7 +37,8 @@
                 
                 <!-- /.card-header -->
                 <div class="col-md-12 table p-4">
-                    <table id="truck_company" class="table  table-striped" summary="Trucking Companies List">
+                    <table id="truck_company" class="table  table-striped">
+                    <caption class="d-none">Trucking Company List</caption>
                         <thead style="text-align: center;">
                             <tr>
                                 <th scope="col">Trucking Company</th>
