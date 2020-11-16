@@ -91,27 +91,22 @@ class ChallanController extends BaseController {
                     $challan_response = $this->challanRepository->updateChallanToEndTrip($allInput);
                     if (!$challan_response['status']) {
                         $return_response = ['status' => false, 'message' => $challan_response['message']];
-                    } 
-                    if($challan_response['status']) {
+                    } else {
                         //update status as 2-unloaded of btop_planned_trucks
                         $truck_response = $this->planTruckRepository->updateStatusAsUnloaded($allInput);
                         if (!$truck_response['status']) {
                             $return_response = ['status' => false, 'message' => $truck_response['message']];
-                        } 
-                        if($truck_response['status']) {
+                        } else {
                             $return_response = ['status' => true, 'message' => 'The trip ended successfully', 'result' => []];
                         }
                     }
-                } 
-                if (!empty($challan_result['result']['unloaded_at']) || !empty($challan_result['result']['unloaded_by'])) {
+                } else {
                     $return_response = ['status' => false, 'message' => 'The trip has already ended'];
                 }
-            } 
-            if (!$challan_result['status']) {
+            } else {
                 $return_response = ['status' => false, 'message' => 'There is no such trip to be ended'];
             }
-        } 
-        if(!$location_response['status']) {
+        } else {
             $return_response = ['status' => false, 'message' => $this->plotValidationMsg];
         }
         //Return Response
