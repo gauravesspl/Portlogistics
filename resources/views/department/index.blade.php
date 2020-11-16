@@ -36,7 +36,8 @@
                             <input type="hidden" id="dept_id">
                             <!-- /.card-header -->
                             <div class="col-md-12 table p-4">
-                                <table id="departments" class="table table-striped" summary="Department List">
+                                <table id="departments" class="table table-striped">
+                                <caption class="d-none">Department List</caption>
                                     <thead style="text-align: center;">
                                         <tr>
                                             <th scope="col">Department</th>
