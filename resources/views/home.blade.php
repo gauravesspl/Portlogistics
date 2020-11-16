@@ -85,7 +85,9 @@
                     </div>
                     <div class="header-details dashboard-filter p-0">
 
-                        <table summary="Berth to plot statistics" class="table" style="width: 100%;">
+                        <table class="table" style="width: 100%;">
+                        <caption class="d-none">Berth to plot statistics</caption>
+
                             <thead class="bg-grey">
                                 <th scope="col">Shift</th>
                                 <th scope="col" class="text-center">No Of Trucks</th>
@@ -109,7 +111,9 @@
                     </div>
                     <div class="header-details dashboard-filter p-0">
 
-                        <table summary="Plot to plot statistics" class="table" style="width: 100%;">
+                        <table class="table" style="width: 100%;">
+                        <caption class="d-none">Plot to plot statistics</caption>
+
                             <thead class="bg-grey">
                                 <th scope="col" class="text-center">Shift</th>
                                 <th scope="col" class="text-center">No Of Trucks</th>
