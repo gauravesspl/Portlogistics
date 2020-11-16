@@ -1,13 +1,10 @@
 <?php
-
 namespace App\Repositories\Location;
-
 use Illuminate\Http\Request;
 use App\Models\Location;
 use App\Libraries\CustomExceptionLibrary;
 use Exception;
 use Log;
-
 class LocationRepository
 {
 

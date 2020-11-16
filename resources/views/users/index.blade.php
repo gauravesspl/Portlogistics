@@ -44,7 +44,8 @@ $privilegeArr = isset($result['privileges']['display_name']) ? $result['privileg
 
                         <!-- /.card-header -->
                         <div class="col-md-12 table p-4">
-                           <table summary="Users Details" id="userlisttbl" class="table table-striped table-responsive">
+                           <table id="userlisttbl" class="table table-striped table-responsive">
+                            <caption>Users Details</caption>
 
                                 <thead>
                                     <tr>

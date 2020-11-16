@@ -32,51 +32,64 @@ class JwtMiddleware extends BaseMiddleware
 
     public function handle(Request $request, Closure $next)
     {
+        $returnBack = false;
         try {
             $user = JWTAuth::parseToken()->authenticate();
         } catch (Exception $e) {
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
-                $response = ['status' => 'failed','result'=>['Token is Invalid']];
+                $api_array = ['status' => 'failed','result'=>['Token is Invalid']];
             }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException){
-                $response = ['result' => ['Token is Expired'], 'status' => 'failed'];
+                $api_array = ['result' => ['Token is Expired'], 'status' => 'failed'];
             }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenBlacklistedException){
-                $response = ['result' => ['Token is Blacklisted'], 'status' => 'failed'];
+                $api_array = ['result' => ['Token is Blacklisted'], 'status' => 'failed'];
             }else{
-                $response = ['result' => ['Authorization Token not found'], 'status' => 'failed'];
+                $api_array = ['result' => ['Authorization Token not found'], 'status' => 'failed'];
             }
             $response['message'] = 'Something Went Wrong';
+            $returnBack = true;
+        }
+        if($returnBack || empty($user))
+        {
             return response()->json($response);
         }
-        $user_id = 0;
-        if(!empty($user))
-        { 
-            $token = $request->bearerToken();
-            $all = $request->all();
-            $all['token'] = $token;
-            $jwtToken = $this->loginService->getUserByToken($all);
-            
-            if(!$jwtToken['status'])
-            {
-                $api_array['status'] = "failed";
-                $api_array['message'] = "Unauthorized Token";
-                $api_array['result'] = ["Unauthorized Token"];
-                return response()->json($api_array);
-            }
-            $user_id = $jwtToken['user']->user_id;
-        }
 
-        $getUser = $this->loginService->getUserByUserId($user_id);
-        if(!$getUser){
+        $user_id = 0; $getUser = $jwtStatus = true;
+        $token = $request->bearerToken();
+        $all = $request->all();
+        $all['token'] = $token;
+        $jwtToken = $this->loginService->getUserByToken($all);
+        if($jwtToken['status'])
+        {
+            $user_id = $jwtToken['user']->user_id;
+            $getUser = $this->loginService->getUserByUserId($user_id);
+            if($getUser){
+                $request->merge([
+                    'user_array' => $getUser,
+                    'user_id' => $user_id
+                ]);
+                return $next($request);
+            }
+            else{
+                $getUser = false;
+            }           
+
+        }
+        else
+        {
+            $jwtStatus = false;
+        }
+        if(!$jwtStatus)
+        {
+            $api_array['status'] = "failed";
+            $api_array['message'] = "Unauthorized Token";
+            $api_array['result'] = ["Unauthorized Token"];
+        }
+        if(!$getUser)
+        {
             $api_array['status'] = "failed";
             $api_array['message'] = "User details not found";
-            $api_array['result'] = ["User details not found"];
-            return response()->json($api_array);
+            $api_array['result'] = ["User details not found"];          
         }
-        $request->merge([
-            'user_array' => $getUser,
-            'user_id' => $user_id
-        ]);
-       
-        return $next($request);
+        return response()->json($api_array);            
     }
 }

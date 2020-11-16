@@ -34,7 +34,7 @@ $(function () {
                 required: true,
                 maxlength: 50
             },
-            berth_location_id: {
+            origin_id: {
                 required: true
             },
             date_to: {
@@ -55,7 +55,7 @@ $(function () {
                 required: "Please enter vessel",
                 maxlength: "Vessel name should not exceed 50 characters",
             },
-            berth_location_id: {
+            origin_id: {
                 required: "Please select berth",
             },
             date_to: {
@@ -83,8 +83,8 @@ $(function () {
             $("#sectionLoader").show();
             setTimeout(function () {
                 $.ajax({
-                    type: ($("#planning_id").val() == '') ? 'POST' : 'PUT',
-                    url: ($("#planning_id").val() == '') ? APP_URL + '/plan' : APP_URL + '/plan/'+$("#planning_id").val(),
+                    type: ($("#plan_id").val() == '') ? 'POST' : 'PUT',
+                    url: ($("#plan_id").val() == '') ? APP_URL + '/plan' : APP_URL + '/plan/'+$("#plan_id").val(),
                     data: $(form).serialize(),
                     async: false,
                     dataType: 'Json',
@@ -208,7 +208,7 @@ function resetPlanDetailFieldNames() {
     $.each($('.planDetailTr'), function (i) {
         var el = $(this);
         el.find('.selCustomer').attr('name', 'plan_details[' + i + '][consignee_id]');
-        el.find('.selPlot').attr('name', 'plan_details[' + i + '][plot_location_id]');
+        el.find('.selPlot').attr('name', 'plan_details[' + i + '][destination_id]');
         el.find('.hdnPlanDetailId').attr('name', 'plan_details[' + i + '][id]');
     });
 }

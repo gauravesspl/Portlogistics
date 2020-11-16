@@ -77,7 +77,7 @@
         <script src="{{theme('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
         <!-- AdminLTE App -->
         <script src="{{theme('dist/js/adminlte.js')}}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js" integrity="sha256-3c8+zl+f7KU8SCc2tH1SAmyiy6kyg1fx9X4x75+xqzc=" crossorigin="anonymous"></script>
         <script src="{{theme('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
         <script src="{{theme('plugins/moment/moment.min.js')}}"></script>
         <script>
@@ -85,6 +85,8 @@
         </script>
         <script src="{{js('app_js')}}"></script>
         <script src="{{js('bootstrap_multiselect_js')}}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha256-t9UJPrESBeG2ojKTIcFLPGF7nHi2vEc7f5A2KpH/UBU=" crossorigin="anonymous"></script>
+
         @stack('script')
     </body>
 </html>

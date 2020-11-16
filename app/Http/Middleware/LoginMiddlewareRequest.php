@@ -20,7 +20,7 @@ class LoginMiddlewareRequest
      * @return mixed
      */
     protected $loginService;
-    
+    define("ERRORMSG", "Something Went Wrong");
     public function __construct(LoginService $loginService)
     {
         $this->loginService = $loginService;
@@ -38,29 +38,30 @@ class LoginMiddlewareRequest
         {
             $api_array['status'] = "failed";
             $api_array['result'] = [$validator->messages()->first()];
-            $api_array['message'] = "Something Went Wrong";
-            return response()->json($api_array);
+            $api_array['message'] = ERRORMSG;
         }   
         $emailExist = $this->loginService->checkIfEmailExist($all);
-        if($emailExist['status'] == false)
+        if(!$emailExist['status'])
         {
             $api_array['status'] = "failed";
             $api_array['result'] = [$emailExist['result']];
-            $api_array['message'] = "Something Went Wrong";
-            return response()->json($api_array);
+            $api_array['message'] = ERRORMSG;
         }
         $hash_passcode = $emailExist['user']->hash_passcode;
         if($hash_passcode != $all['password'])
         {
             $api_array['status'] = "failed";
             $api_array['result'] = ["Hash Code Doesn't match"];
-            $api_array['message'] = "Something Went Wrong";
-            return response()->json($api_array,401);
+            $api_array['message'] = ERRORMSG;
         }
         $user = $emailExist['user'];
         $request->merge([
             'user_array' => $user
         ]);
+        if($api_array['status'] ==  "failed")
+        {
+            return response()->json($api_array);
+        }
         return $next($request);
     }
 }

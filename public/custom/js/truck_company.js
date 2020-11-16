@@ -84,7 +84,7 @@ $(function() {
       var URL = '';
       var type = '';
       if($("#hidden_id").val() != ""){
-        URL =  APP_URL+"/truck-company/"+$("#hidden_id").val();;
+        URL =  APP_URL+"/truck-company/"+$("#hidden_id").val();
         type = "PUT";
       }else{
         URL =  APP_URL+"/truck-company";

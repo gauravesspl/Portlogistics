@@ -52,33 +52,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        /*if ($exception instanceof NotFoundHttpException) {
-            // ajax 404 json feedback
-            if ($request->ajax()) {
-                return response()->json(['error' => 'Not Found'], 404);
-            }         
-        }
-
-        // normal 404 view page feedback
-        if ($this->isHttpException($exception)) {
-            if ($exception->getStatusCode() == 404) {
-                return response()->view('errors.404', [], 404);
-            }
-        } */
-        /* if($exception instanceof \ErrorException)
-        {
-                return response()->view('errors.404', [], 404);
-        }
-        if($exception instanceof BindingResolutionException)
-        {
-                return response()->view('errors.404', [], 404);
-        } */
-      /*   if($exception->getMessage() == 'Unauthenticated.'){
-             return redirect()->away(url('login'));
-         }*/
-    /*    if (config('app.debug') && !$this->isHttpException($exception)) {
-            $exception = new HttpException(500);
-        }*/
         if ($exception instanceof \Illuminate\Session\TokenMismatchException) {
             $request->session()->flush();
             return redirect()->route('login');

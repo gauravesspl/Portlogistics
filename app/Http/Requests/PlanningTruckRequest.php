@@ -26,7 +26,7 @@ class PlanningTruckRequest extends JsonRequest {
     public function rules() {
         if ($this->isMethod('post')) {
             return [
-                'planning_id' => 'required',
+                'plan_id' => 'required',
                 'trucks' => 'required',
                 'trucks.*.truck_id' => 'required',
                 'trucks.*.truck_company_id' => 'required',
@@ -42,8 +42,8 @@ class PlanningTruckRequest extends JsonRequest {
 
     public function messages() {
         return [
-            'planning_id.required' => 'Please provide Plan',
-            'plan_details.required' => 'Please provide planning details',
+            'plan_id.required' => 'Please provide Plan id',
+            //'plan_details.required' => 'Please provide planning details',
             'trucks.*.truck_id.required' => 'Please provide Truck',
             'trucks.*.truck_company_id.required' => 'Please provide Trucking Company',
         ];

@@ -489,6 +489,10 @@ table .fas{
 #planTruckDetailTbl {
     margin-top: 20px;
 }
+.grapharea{
+    border: 1px dashed #808080;
+    border-radius: 82px;
+}
 
 @media (max-width: 995px) {
 

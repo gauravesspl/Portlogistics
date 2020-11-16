@@ -3,6 +3,7 @@
 namespace App\Repositories\Export;
 use App\Models\Export;
 use DB;
+use Exception;
  class ExportRepository{
  	/*
  	*Description : It will return the Export key  to Service for building the CSV.
@@ -16,9 +17,9 @@ use DB;
  		try{
  			$export = new Export();
 			$export->setConnection($allInput['connection']);
-			$exportData = $export->where('export_key',$allInput['export_key'])->first();
+			$export->where('export_key',$allInput['export_key'])->first();
 
-			$headers = json_decode($exportData->excel_column);
+			$headers = json_decode($export->excel_column);
 			$key = $allInput['export_key'];
 			$headerColumn = [];
 			$headerColumn[0] = 'Sl No'; // Adding in Serial No in first column of row
@@ -61,12 +62,12 @@ use DB;
  		try{
  			$export 			= new Export();
 			$export->setConnection($allInput['connection']);
-			$exportData 		= $export->where('export_key',$allInput['export_key'])->first();
-			if($exportData)
+			$export->where('export_key',$allInput['export_key'])->first();
+			if($export)
 			{
-				$model 			= $exportData->model_name;
-				$dbColumns 		= $exportData->db_column;
-				$modelFunction 	= $exportData->model_function;
+				$model 			= $export->model_name;
+				$dbColumns 		= $export->db_column;
+				$modelFunction 	= $export->model_function;
 	 			$exportKey 		= $allInput['export_key'];
 	 			$model 			= str_replace(' ', '','App\Models\ '.$model);
 	 			$modelObj 		= new $model();

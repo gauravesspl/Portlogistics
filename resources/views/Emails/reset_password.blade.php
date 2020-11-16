@@ -9,11 +9,13 @@
 
 <body>
     <table  summary="Reset Password" style="width:100%">
+        <caption>Reset Password</caption>
         <tr>
-            <th>
-                <table summary="Details" style="text-align:center;width:600px;padding: 30px;margin-left: auto;margin-right: auto;background:url('https://i.ibb.co/D86Gc2v/Email-Template-Bkg-Image.jpg');background-repeat: no-repeat;background-size: auto;">
+            <th scope="column">
+                <table  style="text-align:center;width:600px;padding: 30px;margin-left: auto;margin-right: auto;background:url('https://i.ibb.co/D86Gc2v/Email-Template-Bkg-Image.jpg');background-repeat: no-repeat;background-size: auto;">
+                     <caption>Details</caption>
                     <tr>
-                        <th><b>Dear {{ucfirst($email_data['name'])}},</b></th>
+                        <th scope="column"><b>Dear {{ucfirst($email_data['name'])}},</b></th>
                     </tr>
                     <tr>
                         <td></td>

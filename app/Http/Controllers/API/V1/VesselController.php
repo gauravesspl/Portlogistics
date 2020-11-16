@@ -39,9 +39,9 @@ class VesselController extends BaseController
         $vessel = $this->vesselRepository->getAllVessel($param);
         $vessel['privileges'] =  isset($allInput['privilege_array'])?$allInput['privilege_array'] : "";
         if(!$vessel['status']){
-           return $this->sendError($vessel,$response['message'], $param);
+           return $this->sendError($vessel,$vessel['message'], $param);
         }
-        return $this->sendResponse($vessel,$response['message'], $param);
+        return $this->sendResponse($vessel,$vessel['message'], $param);
     }
     /**
      * @OA\Post(

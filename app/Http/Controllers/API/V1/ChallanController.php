@@ -17,8 +17,8 @@ use App\Http\Requests\ScanChallanRequest;
 use App\Http\Requests\FetchBarcodeRequest;
 use App\Http\Requests\CreateChallanRequest;
 use App\Services\PdfService;
-use App\Repositories\BtopPlanning\BtopPlanningRepository as PlanRepository;
-use App\Repositories\BtopPlannedTruck\BtopPlannedTruckRepository as PlanTruckRepository;
+use App\Repositories\Plan\PlanRepository;
+use App\Repositories\PlanTruck\PlanTruckRepository;
 use Carbon\Carbon;
 use App\Http\Requests\InboundChallanListRequest;
 
@@ -26,22 +26,22 @@ class ChallanController extends BaseController {
 
     use CustomTrait;
 
-    protected $challanRepository, $shiftController, $locationRepository, $organizationRepository, $planTruckRepository, $pdfService;
+    protected $challanRepository, $shiftController, $locationRepository, $organizationRepository, $planTruckRepository, $pdfService, $plotValidationMsg;
     public $plotType = null;
     public $berthType = null;
     public $defaultDateFormat = 'Y-m-d H:i:s';
     public $viewDateFormat = 'd/m/Y H:i:s';
 
-    public function __construct(ChallanRepository $challanRepository, ShiftController $shiftController, LocationRepository $locationRepository, OrganizationRepository $organizationRepository, PlanRepository $planRepository, PlanTruckRepository $planTruckRepository, PdfService $pdfService) {
+    public function __construct(ChallanRepository $challanRepository, ShiftController $shiftController, LocationRepository $locationRepository, OrganizationRepository $organizationRepository, PlanTruckRepository $planTruckRepository, PdfService $pdfService) {
         $this->challanRepository = $challanRepository;
         $this->shiftController = $shiftController;
         $this->locationRepository = $locationRepository;
         $this->organizationRepository = $organizationRepository;
-        $this->planRepository = $planRepository;
         $this->planTruckRepository = $planTruckRepository;
         $this->pdfService = $pdfService;
         $this->plotType = Config::get('constants.location_plot');
         $this->berthType = Config::get('constants.location_berth');
+        $this->plotValidationMsg = Config::get('constants.plot_validation_msg');
     }
 
     /**
@@ -107,7 +107,7 @@ class ChallanController extends BaseController {
                 $return_response = ['status' => false, 'message' => 'There is no such trip to be ended'];
             }
         } else {
-            $return_response = ['status' => false, 'message' => 'Please provide a correct plot no'];
+            $return_response = ['status' => false, 'message' => $this->plotValidationMsg];
         }
         //Return Response
         if ($return_response['status']) {
@@ -238,7 +238,7 @@ class ChallanController extends BaseController {
             //to check Location is plot or not;
             $location_response = $this->locationRepository->getLocationById($allInput, $this->plotType);
             if (!$location_response['status']) {
-                $return_response = ['status' => false, 'message' => 'Please provide a correct plot no.'];
+                $return_response = ['status' => false, 'message' => $this->plotValidationMsg];
             } else {
                 //fetch planned loaded truck details from btop_planned_trucks (input:planning_id)
                 $planned_trucks_response = $this->planTruckRepository->getPlannedLoadedTrucksById($allInput);
@@ -252,7 +252,7 @@ class ChallanController extends BaseController {
                         $data['plan_id'] = $allInput['plan_id'];
                         $data['organization'] = ['id' => $organization->id, 'name' => $organization->name];
                         $data['trucks'] = [];
-                        foreach ($planned_trucks_response['result'] as $key => $trucks_response) {
+                        foreach ($planned_trucks_response['result'] as $trucks_response) {
                             $row = [];
                             $allInput['truck_id'] = $trucks_response->truck_id;
                             $challan_response = $this->challanRepository->getInboundChallanList($allInput);
@@ -384,7 +384,7 @@ class ChallanController extends BaseController {
                 //Validate Inputs
                 $challan = $challan_response['result'];
                 if ($challan->destination->type != $this->plotType) {
-                    $return_response = ['status' => false, 'message' => 'Please provide a correct plot no.'];
+                    $return_response = ['status' => false, 'message' => $this->plotValidationMsg];
                 } else if ($challan->destination_id != $inputs['destination_id']) {
                     $return_response = ['status' => false, 'message' => 'This challan belongs to a different plot'];
                 } else if ((!empty($challan->unloaded_at)) || ($challan->status == '2')) {
@@ -460,7 +460,7 @@ class ChallanController extends BaseController {
             //Get location details
             $location_response = $this->locationRepository->getLocationById($inputs, $this->plotType);
             if (!$location_response['status']) {
-                $return_response = ['status' => false, 'message' => 'Please provide a correct plot no.'];
+                $return_response = ['status' => false, 'message' => $this->plotValidationMsg];
             } else {
                 //Get challan details
                 $challan_response = $this->challanRepository->getFilteredChallans($inputs);
@@ -576,9 +576,7 @@ class ChallanController extends BaseController {
                                     //Validate challan
                                     $inputs['status'] = '1'; //unload pending
                                     $challan_response = $this->challanRepository->getFilteredChallans($inputs);
-                                    if (!$challan_response['status']) {
-                                        $return_response = ['status' => false, 'message' => $challan_response['message']];
-                                    } else if(!$challan_response['result']->isEmpty()) {
+                                    if($challan_response['status'] && !$challan_response['result']->isEmpty()) {
                                         $return_response = ['status' => false, 'message' => 'Challan is already created for this trip'];
                                     } else {
                                         //Insert Challan
@@ -590,7 +588,7 @@ class ChallanController extends BaseController {
                                         $challan_input['shift_id'] = $inputs['shift_id'];
                                         $challan_input['cargo_id'] = $planning->cargo_id;
                                         $challan_input['consignee_id'] = $inputs['consignee_id'];
-                                        $challan_input['challan_no'] = date('Ymd') . rand(100, 100000);
+                                        $challan_input['challan_no'] = date('Ymd') . random_int(100, 100000);
                                         $challan_input['type'] = (isset($planning->type) && !empty($planning->type)) ? $planning->type : '1'; //btop
                                         $challan_input['status'] = '1'; //unload pending
                                         $challan_input['is_deposit'] = '0'; //not reconciled

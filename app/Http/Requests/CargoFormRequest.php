@@ -1,11 +1,8 @@
 <?php
-
 namespace App\Http\Requests;
-
 use App\Http\Requests\JsonRequest;
 use GuzzleHttp\Psr7\Request;
 use Route;
-
 class CargoFormRequest extends JsonRequest
 {
     /**

@@ -80,16 +80,18 @@
                 <div class="card-header border-0 col-md-12">
                     <div class="header-details dashboard-filter bg-navy">
                         <span>Berth to Plot </span>
-                        <img class="img img-reponsive"  src="{{images('berthtoplot')}}" alt="BTP">
-                       
+                        <img class="img img-reponsive" src="{{images('berthtoplot')}}" alt="BTP">
+
                     </div>
                     <div class="header-details dashboard-filter p-0">
 
                         <table class="table" style="width: 100%;">
+                        <caption class="d-none">Berth to plot statistics</caption>
+
                             <thead class="bg-grey">
-                                <th>Shift</th>
-                                <th>No Of Trucks</th>
-                                <th>Trips Completed</th>
+                                <th scope="col">Shift</th>
+                                <th scope="col" class="text-center">No Of Trucks</th>
+                                <th scope="col"class="text-center">Trips Completed</th>
                             </thead>
                             <tbody id="btp">
 
@@ -104,16 +106,18 @@
                 <div class="card-header border-0 col-md-12">
                     <div class="header-details dashboard-filter bg-navy">
                         <span>Plot to Plot</span>
-                        <img class="img img-reponsive"  src="{{images('plottoplot')}}" alt="PTP">
+                        <img class="img img-reponsive" src="{{images('plottoplot')}}" alt="PTP">
 
                     </div>
                     <div class="header-details dashboard-filter p-0">
 
                         <table class="table" style="width: 100%;">
+                        <caption class="d-none">Plot to plot statistics</caption>
+
                             <thead class="bg-grey">
-                                <th>Shift</th>
-                                <th>No Of Trucks</th>
-                                <th>Trips Completed</th>
+                                <th scope="col" class="text-center">Shift</th>
+                                <th scope="col" class="text-center">No Of Trucks</th>
+                                <th scope="col" class="text-center">Trips Completed</th>
                             </thead>
                             <tbody id="ptp">
 
@@ -131,15 +135,15 @@
                 <div class="card-header border-0 col-md-12">
                     <div class="header-details dashboard-filter bg-navy">
                         <span>No of Trucks </span>
-                        <img class="img img-reponsive"  src="{{images('nooftrucks')}}" alt="No Of Trucks">
+                        <img class="img img-reponsive" src="{{images('nooftrucks')}}" alt="No Of Trucks">
 
                     </div>
                     <div class="header-details dashboard-filter">
                         <div class="col-md-8 ntu">
                             <p><span class="text-label-1">Shift A</span> : <span class="default grapharea-nooftrucks-A">0</span></p>
-                            </div>
+                        </div>
                         <div class="col-md-4">
-                            <canvas id="grapharea-nooftrucks" width="100%" height="100%"></canvas>
+                            <canvas class="grapharea" id="grapharea-nooftrucks" width="100%" height="100%"></canvas>
 
                         </div>
                     </div>
@@ -151,7 +155,7 @@
                     <div class="header-details dashboard-filter bg-navy">
 
                         <span>Trips Completed </span>
-                        <img class="img img-reponsive"  src="{{images('tripscompleted')}}" alt="No Of Trips Completed">
+                        <img class="img img-reponsive" src="{{images('tripscompleted')}}" alt="No Of Trips Completed">
 
 
                     </div>
@@ -162,7 +166,7 @@
                             <p><span class="text-label-3">Shift C</span> : <span class="default grapharea-tripscompleted-C">0</span></p>
                         </div>
                         <div class="col-md-4">
-                            <canvas id="grapharea-tripscompleted" width="100%" height="100%"></canvas>
+                            <canvas class="grapharea" id="grapharea-tripscompleted" width="100%" height="100%"></canvas>
 
                         </div>
                     </div>
@@ -172,7 +176,7 @@
                 <div class="card-header border-0 col-md-12">
                     <div class="header-details dashboard-filter bg-navy">
                         <span>Challans Deposited </span>
-                        <img class="img img-reponsive"  src="{{images('challandep')}}" alt="Challans Deposited">
+                        <img class="img img-reponsive" src="{{images('challandep')}}" alt="Challans Deposited">
 
                     </div>
                     <div class="header-details dashboard-filter">
@@ -182,7 +186,7 @@
                             <p><span class="text-label-3">Shift C</span> : <span class="default grapharea-challansdep-C">0</span></p>
                         </div>
                         <div class="col-md-4">
-                            <canvas id="grapharea-challansdep" width="100%" height="100%"></canvas>
+                            <canvas class="grapharea" id="grapharea-challansdep" width="100%" height="100%"></canvas>
 
                         </div>
                     </div>
@@ -207,7 +211,6 @@
 
 @endsection
 @push('script')
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 <script type='text/javascript'>
     var token = '{{ csrf_token() }}';

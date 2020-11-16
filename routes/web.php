@@ -95,18 +95,22 @@ Route::group([
     // Dashboard API
     Route::get('/home', 'DashboardController@show')->name('home');
     //Planning 
-    Route::get('plans', 'BtopPlanningController@list');
-    Route::post('plan/list-ajax', 'BtopPlanningController@getPlanningList');
-    Route::get('plan', 'BtopPlanningController@add');
-    Route::get('plan/{id?}', 'BtopPlanningController@edit');
-    Route::delete('plan/{id?}', 'BtopPlanningController@delete');
-    Route::post('plan', 'BtopPlanningController@store');
-    Route::put('plan/{id?}', 'BtopPlanningController@update');
+
+    Route::get('plans', 'PlanController@list');
+    Route::post('plan/list-ajax', 'PlanController@getPlanningList');
+    Route::get('plan', 'PlanController@add');
+    Route::get('plan/{id?}', 'PlanController@edit');
+    Route::delete('plan/{id?}', 'PlanController@delete');
+    Route::post('plan', 'PlanController@store');
+    Route::put('plan/{id?}', 'PlanController@update');
+    
+
     // Add Truck For Planning
-    Route::post('/planning/truck/add','BtopPlanningController@create');
-    Route::post('/planning/get-trucks','BtopPlanningController@getTrucks')->name('getTrucks');
-    Route::post('plan/truck','BtopPlanningController@storeTruckForBtopPlan');
-    Route::delete('plan/truck/{plan_id}/{truck_id}','BtopPlanningController@deleteTruckForBtopPlan');
+    Route::post('/planning/truck/add','PlanController@create');
+    Route::post('/planning/get-trucks','PlanController@getTrucks')->name('getTrucks');
+    Route::post('plan/truck','PlanController@storeTruckForBtopPlan');
+    Route::delete('plan/truck/{plan_id}/{truck_id}','PlanController@deleteTruckForBtopPlan');
+
     //Challan API
     Route::get('/challans', 'ChallanController@index');
     Route::post('/challan/list-ajax', 'ChallanController@getChallanList');

@@ -3,8 +3,7 @@
 namespace App\Http\Requests;
 use App\Http\Requests\JsonRequest;
 
-
-class PlanningListFormRequest extends JsonRequest
+class PlanEditDeleteRequest extends JsonRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,17 +22,27 @@ class PlanningListFormRequest extends JsonRequest
      */
     public function rules()
     {
-        if ($this->isMethod('get')) {
+        if ($this->isMethod('get') || $this->isMethod('delete')) {
             return [
-                'origin_id' => 'required|integer|gt:0|digits_between:1,15',
+                'id' => 'required|integer|gt:0|digits_between:1,15'
             ];
-         }
+        }
     }
 
+    /**
+     * Get the validation messages
+     */
+    public function messages()
+    {
+        return [
+            'id.required'=>'Plan id is required'
+        ];
+    }
+    
     public function all($keys = null) 
     {
         $data = parent::all($keys);
-        $data['origin_id'] = $this->route('origin_id');
+        $data['id'] = $this->route('id');
         return $data;
     }
 }

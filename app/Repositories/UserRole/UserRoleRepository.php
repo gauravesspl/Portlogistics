@@ -130,7 +130,6 @@ class UserRoleRepository
             Log::error($e->getMessage());
         }
         return $fetch;
-        unset($roleUpdate);
     }
 
     /*

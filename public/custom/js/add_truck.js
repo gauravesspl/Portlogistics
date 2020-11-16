@@ -190,7 +190,7 @@ $(document).on('click', '.remove_plan_details', function () {
                     if (getId != "") {
                         $.ajax({
                             type: 'DELETE',
-                            url: APP_URL + "/plan/truck/"+$("#planning_id").val()+"/"+getId,
+                            url: APP_URL + "/plan/truck/"+$("#plan_id").val()+"/"+getId,
                             async: false,
                             dataType: 'Json',
                             success: function (response) {

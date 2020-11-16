@@ -10,7 +10,7 @@ class SendEmailLibrary
 {
 
     protected $sendEmailRepository;
-
+    define("ERRORMSG", "something went wrong");
     public function __construct(SendEmailRepository $sendEmailRepository, SendEmailService $sendEmailService)
     {
         $this->sendEmailRepository = $sendEmailRepository;
@@ -37,7 +37,7 @@ class SendEmailLibrary
     {
         $checkSendEmail = $this->sendEmailRepository->checkSendEmail($email_data['user_id']);
         if ($checkSendEmail['isError']) {
-            return ['status' => 'failed', 'message' => 'something went wrong'];
+            return ['status' => 'failed', 'message' => ERRORMSG];
         }
         $view = $this->sendEmailService->generateEmailTemplate($email_data['template']);
         $heading = $this->sendEmailService->generateEmailHeading($email_data['template']);

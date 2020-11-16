@@ -9,19 +9,6 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
-        <!-- <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Cargo</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Administration</a></li>
-                        <li class="breadcrumb-item active">Cargo</li>
-                    </ol>
-                </div>
-            </div>
-        </div> -->
     </div>
     <!-- /.content-header -->
      
@@ -33,13 +20,6 @@
                 <div class="row">
                     <input type="hidden" id="cargo_id"> 
                     <div class="col-md-12"> 
-                        <!-- @if(in_array('ADD',$privilegeArr))
-                        <span  class="float-right" id="add_cargo_btn" data-placement="top" title="Add Cargo" style="cursor: pointer;">
-                            <i class="fas fa-3x fa-plus-circle tooltips text-primary"></i>
-                        </span>  
-                        @endif                              
-                    </div><br><br><br> -->
-
                     <div class="card">
                         <div class="card-header border-0">
                             <div class="header-details">
@@ -47,8 +27,6 @@
                             <h2 class="m-0 text-dark">Cargo</h2>
                             </div>
                             <div class="action-area">
-                                
-                               
                                 <form action="{{url('csv-export')}}" method="post">
                                     @csrf
                                     <input type="hidden" name="key" value = "Cargo">
@@ -64,13 +42,14 @@
                 <!-- /.card-header -->
                 <div class="col-md-12 table  p-4">
                     <table id="dtcargo" class="table  table-striped">
-                        <thead align="center">
+                        <caption>Cargo Details</caption>
+                        <thead style="text-align: center">
                             <tr>
                               
-                                <th>Cargo</th>
-                                <th>Description</th> 
-                                <th hidden=""></th>                                           
-                                <th>Action</th>
+                                <th scope="column">Cargo</th>
+                                <th scope="column">Description</th> 
+                                <th hidden="" scope="column"></th>                            
+                                <th scope="column">Action</th>
                             </tr>
                         </thead>
                         <tbody align="center">
@@ -80,11 +59,11 @@
                             <td>{{ $result->name }}</td>                                    
                             <td>{{ $result->instruction }}</td>
                             <td hidden="">{{$result->id}}</td>      
-                            <td align="center">
+                            <td style="text-align: center;">
                                 
-                                    <a href="javascript:void(0);" onclick="editCargo({{ ($result->id)}})" data-toggle="tooltip" class="edit tooltips" title="Update Cargo"><i class="fas fa-2x fa-edit text-success"></i></a> &nbsp;&nbsp;
+                                    <a href="javascript:void(0);" onclick="editCargo({{ ($result->id)}})" data-toggle="tooltip" class="edit tooltips" title="Update Cargo"><i class="fas fa-2x fa-edit text-success" aria-hidden="true"></i></a> &nbsp;&nbsp;
                              
-                                    <i class='fas fa-2x fa-trash text-danger tooltips delete' data-placement='top' title='Delete Cargo' style='cursor:pointer'></i>
+                                    <i class='fas fa-2x fa-trash text-danger tooltips delete' data-placement='top' title='Delete Cargo' style='cursor:pointer'  aria-hidden="true"></i>
                              
                             </td>    
                          </tr>
@@ -130,8 +109,8 @@
               
             </div>
             <div class="modal-footer justify-content">
-              <button type="button" class="icon-button" data-dismiss="modal" title="Cancel"><i class="fas fa-2x fa-times-circle tooltips text-danger"></i></button>
-              <button id="btncargo" type="submit" class="icon-button" title="Save"><i class="fas fa-2x fa-save tooltips text-success"></i></button>
+              <button type="button" class="icon-button" data-dismiss="modal" title="Cancel"><i class="fas fa-2x fa-times-circle tooltips text-danger" aria-hidden="true"></i></button>
+              <button id="btncargo" type="submit" class="icon-button" title="Save"><i class="fas fa-2x fa-save tooltips text-success" aria-hidden="true"></i></button>
             </div>
               </form>
           </div>

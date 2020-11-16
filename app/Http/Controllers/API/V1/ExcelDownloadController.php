@@ -30,7 +30,6 @@ class ExcelDownloadController extends BaseController
         $allInput['export_key'] = $request->key;
         $allInput['organization_id']    = $param['user_auth']['organization_id'];
         $configFilename = Config::get('export.filename');
-        $configFilePath = Config::get('export.path');
         $fileName       = $configFilename.$allInput['export_key'].'DataExport_'.date('d-m-Y').'.xlsx';
     	$excelheader     =  $this->exportRepository->getExportHeaders($allInput);
         $excelRowData    = $this->exportRepository->getExportDetail($allInput);

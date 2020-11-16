@@ -39,14 +39,13 @@ $(function () {
         },
 
         submitHandler: function (form) {
+            var type = '';
             if ($("#hidden_id").val() != "") {
                 var URL = APP_URL + "/cargo/"+$("#hidden_id").val();
-                var text = "Updated!";
-                var type = "PUT";
+                type = "PUT";
             } else {
                 var URL = APP_URL + "/cargo";
-                var text = "Saved!";
-                 var type = "post";
+                type = "post";
             }
           
             $.ajax({

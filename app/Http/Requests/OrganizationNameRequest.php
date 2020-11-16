@@ -1,9 +1,6 @@
 <?php
-
 namespace App\Http\Requests;
-
 use App\Http\Requests\JsonRequest;
-
 class OrganizationNameRequest extends JsonRequest {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,14 +22,15 @@ class OrganizationNameRequest extends JsonRequest {
         * @description: This two condition because we are handle Org_details and  org_rate in one API. THat's why added handler @$this->input('org_type')
         **/
         $msgArr = [];
+        $numberRules = 'required|regex:/[0-9]+$/|numeric|digits_between:1,20';
         if($this->input('org_type') == 'org_info') // Organization Information
         {
              $msgArr = [
                 'name' => 'required|max:60',
-                'mobile_no' => 'required|regex:/[0-9]+$/|numeric|digits_between:1,20',
+                'mobile_no' => $numberRules,
                 'address' => 'required',
                 'primary_contact' => 'required|max:40',
-                'primary_mobile_no' => 'required|regex:/[0-9]+$/|numeric|digits_between:1,20',
+                'primary_mobile_no' => $numberRules,
                 'primary_email' => 'required|email|max:60',
                 'secondary_contact' => 'nullable|max:40',
                 'secondary_mobile_no' => 'nullable|numeric|digits_between:1,20',
@@ -42,10 +40,10 @@ class OrganizationNameRequest extends JsonRequest {
                 $msgArr = [
                     'id' => 'integer|gt:0',
                     'name' => 'required|max:60',
-                    'mobile_no' => 'required|regex:/[0-9]+$/|numeric|digits_between:1,20',
+                    'mobile_no' => $numberRules,
                     'address' => 'required',
                     'primary_contact' => 'required|max:40',
-                    'primary_mobile_no' => 'required|regex:/[0-9]+$/|numeric|digits_between:1,20',
+                    'primary_mobile_no' => $numberRules,
                     'primary_email' => 'required|email|max:60',
                     'secondary_contact' => 'nullable|max:40',
                     'secondary_mobile_no' => 'nullable|numeric|digits_between:1,20',
@@ -72,8 +70,7 @@ class OrganizationNameRequest extends JsonRequest {
     public function all($keys = null)
     {
         $data = parent::all();
-        $data =  array_merge($data, $this->route()->parameters());
-        return $data;
+        return  array_merge($data, $this->route()->parameters());
     }
 
     public function messages() {

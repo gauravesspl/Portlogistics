@@ -14,6 +14,10 @@ use Jenssegers\Agent\Agent;
 class BaseController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->cacheClearMessage =  'Cache Clear Succesfully';
+    }
     /**
      * Get Auth details based on is_browser param
      *
@@ -136,8 +140,8 @@ class BaseController extends Controller
            $key = $org_id.':'.$roles;
            Cache::forget($key);
         }
-        $result = ['Cache Clear Succesfully'];
-        $message = 'Cache Clear Succesfully';
+        $result = [$this->cacheClearMessage];
+        $message = $this->cacheClearMessage;
         return $this->sendResponse($result, $message);
     }
 
@@ -151,8 +155,8 @@ class BaseController extends Controller
            $key = $org_id.':'.$user_id.':'.$urls;
            Cache::forget($key);
         }
-        $result = ['Cache Clear Succesfully'];
-        $message = 'Cache Clear Succesfully';
+        $result = [$this->cacheClearMessage];
+        $message = $this->cacheClearMessage;
         return $this->sendResponse($result, $message);
     }
 

@@ -29,7 +29,7 @@ class Location extends Model
     protected $hidden = ['pivot'];
     
     public function challan() {
-        return $this->hasMany('App\Models\Challan', 'origin_location_id');
+        return $this->hasMany('App\Models\Challan', 'origin_id');
     }
 
     

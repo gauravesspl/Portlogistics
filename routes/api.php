@@ -103,15 +103,18 @@ Route::group([
     Route::post('/user','UserController@store');
     Route::put('user/{id?}', 'UserController@update');
      // API for Planning truck
-    Route::post('/planning/get-trucks','BtopPlanningController@getTrucks')->name('getTrucks');
-    Route::post('plan/truck','BtopPlanningController@storeTruckForBtopPlan');
-    Route::delete('plan/truck/{plan_id}/{truck_id}','BtopPlanningController@deleteTruckForBtopPlan');
+
+    Route::post('/planning/get-trucks','PlanController@getTrucks')->name('getTrucks');
+    Route::post('plan/truck','PlanController@storeTruckForBtopPlan');
+    Route::delete('plan/truck/{plan_id}/{truck_id}','PlanController@deleteTruckForBtopPlan');
+    
     //Planning API
-    Route::get('plan/detail/{origin_id?}','BtopPlanningController@getPlanningDetailsByBerthAndDate');
-    Route::get('plan/{id?}', 'BtopPlanningController@edit');
-    Route::delete('plan/{id?}', 'BtopPlanningController@delete');
-    Route::post('plan', 'BtopPlanningController@store');
-    Route::put('plan/{id?}', 'BtopPlanningController@update');
+    Route::get('plan/detail/{origin_id?}','PlanController@getPlanningDetailsByBerthAndDate');
+    Route::get('plan/{id?}', 'PlanController@edit');
+    Route::delete('plan/{id?}', 'PlanController@delete');
+    Route::post('plan', 'PlanController@store');
+    Route::put('plan/{id?}', 'PlanController@update');
+
     /*List of challan APIs */
     Route::get('/challan/inbound-list/{plan_id?}/{destination_id?}', 'ChallanController@getInboundChallanList');
     Route::post('/challan/reconcile', 'ChallanController@reconcileChallan');

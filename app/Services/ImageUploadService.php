@@ -43,9 +43,8 @@ class ImageUploadService{
 		            {
 		            	if(file_exists(storage_path($staticStoragePath.$allInput['last_image']))){
 					        unlink(storage_path($staticStoragePath.$allInput['last_image']));
-					    };
+					    }
 		            }
-		           
 		           	$uploadResponse = $this->serverUpload->upload($allInput['image'], $filePath,$fileName); // Sending to upload custom library function for Upload
 		            if($uploadResponse['status'] )
 					{
@@ -66,7 +65,6 @@ class ImageUploadService{
 						$fetch['message'] = 'Problem while uploading Profile Image!';
 						$fetch['status'] = false;
 					}
-		 
 		        }
 		        else
 		        {

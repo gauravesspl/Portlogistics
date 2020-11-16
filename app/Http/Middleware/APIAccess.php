@@ -1,14 +1,11 @@
 <?php
-
 namespace App\Http\Middleware;
-
 use Closure;
 use Auth;
 use Config;
 use App\Models\AccessList;
 use App\Models\RoleAcces;
 use Log;
-
 class APIAccess
 {
     /**

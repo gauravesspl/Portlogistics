@@ -32,13 +32,14 @@
                                     <button  type="submit" class="btn btn-primary float-right tooltips "><i class="fa fa-file-excel" aria-hidden="true"></i> Export</button>
                                 </form>
 
-                                <button id="btnLocationsAdd" type="button" class="btn btn-success tooltips " data-toggle="modal" data-target="#modal-locations" data-placement="top" ><i class="fa fa-plus"></i> Add New Location</button>   
+                                <button id="btnLocationsAdd" type="button" class="btn btn-success tooltips " data-toggle="modal" data-target="#modal-locations" data-placement="top" ><i class="fa fa-plus" aria-hidden="true"></i> Add New Location</button>   
                             </div> 
                         </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="col-md-12 table p-4">
-                        <table id="dtLocation" class="table  table-striped" summary="Location Lists">
+                        <table id="dtLocation" class="table  table-striped">
+                            <caption>Location Lists</caption>
                             <thead style="text-align: center;">
                                 <tr>
                                     <th scope="column">Location</th>
@@ -56,7 +57,7 @@
                                 <td>{{ $result->description }}</td>                                                                        
                                 <td>{{ $result->type == 'P'?'Plot':'Berth' }}</td>
                                 <td hidden="">{{$result->id}}</td>    
-                                <td align="center">
+                                <td style="text-align: center;">
 
                                      <a href="javascript:void(0);" onclick="return editLocation('{{ $result->id }}')" data-target="top" class="edit tooltips" title="Update Location"><i class="fas fa-2x fa-edit text-success" aria-hidden="true"></i></a> &nbsp;&nbsp;
 

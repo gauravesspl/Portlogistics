@@ -56,8 +56,8 @@ $(document).ready(function () {
 
 					rows += `<tr>
                				<td>`+ val + `</td>
-               				<td>`+ response.result.ntu[val] + `</td>
-               				<td>`+ response.result.ttc[val] + `</td>
+               				<td class="text-center">`+ response.result.ntu[val] + `</td>
+               				<td class="text-center">`+ response.result.ttc[val] + `</td>
 						   </tr>`;
 
 					ntu_rows += `<p><span class="text-label-`+index+`">`+val+`</span> : <span class="default">`+response.result.ntu[val]+`</span></p>`;

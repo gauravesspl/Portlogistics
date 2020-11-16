@@ -18,16 +18,15 @@ class WebAccess
     
     public function handle($request, Closure $next)
     {
+        $errorMsg =  "Something Went Wrong";
         $response['message'] = "";
         $response['status'] = true;
         $routeUrl = $request->route()->uri;
-       // echo $request->getMethod();
         $userId = Auth::user()->id;
         $userRoleId = Auth::user()->role_id;
         $accessListObj = new AccessList();
         $roleAccessObj = new RoleAcces();
         $getAccessListDetails = $accessListObj->where('web_route',$routeUrl)->where('operation',$request->getMethod())->first();
-   //   dd($getAccessListDetails);
         if($getAccessListDetails)
         {
             if($getAccessListDetails->hierarchy == 'C') // For Sub Menu Action like : Cargo,Vessel etc
@@ -38,7 +37,7 @@ class WebAccess
                     $response = [
                         'status' => 'failed',
                         'result'    => ["You have not permission to access this page!"],
-                        'message' => "Something Went Wrong",
+                        'message' => $errorMsg,
                         'status_code' =>101
                     ];
                     return response()->json($response);
@@ -62,7 +61,7 @@ class WebAccess
                     ]);
                 }  
             }
-            if($getAccessListDetails->hierarchy == 'S') // For Sub child Action
+            else if($getAccessListDetails->hierarchy == 'S') // For Sub child Action
             {
                 $roleAccessObj = $roleAccessObj->where('access_id',$getAccessListDetails->id)->where('user_role_id',$userRoleId)->first();
                 if(null == $roleAccessObj)
@@ -70,12 +69,12 @@ class WebAccess
                     $response = [
                         'status' => 'failed',
                         'result'    => ["You don't have permission to access data"],
-                        'message' => "Something Went Wrong",
+                        'message' => $errorMsg,
                         'status_code' =>101
                     ];
-                    return response()->json($response);
                 }
             }
+            return response()->json($response);
         }
         else
         {
@@ -83,7 +82,7 @@ class WebAccess
             $response = [
                 'status' => 'failed',
                 'result'    => ["Requested Route is not found in Database!"],
-                'message' => "Something Went Wrong",
+                'message' => $errorMsg,
                 'status_code' =>101
             ];
             return response()->json($response);
@@ -98,7 +97,6 @@ class WebAccess
         $request->merge([
            'cache_array' => $cacheArray
         ]);
-        //dd($request);
-        return $next($request);
+         return $next($request);
     }
 }

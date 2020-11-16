@@ -50,9 +50,9 @@
                                         <div class="row">
                                             <div class="col-4">
                                                 <div class="form-group row">
-                                                    <label for="btop_plannings.vessel_id" class="col-sm-3 col-form-label">Vessel</label>
+                                                    <label for="plans.vessel_id" class="col-sm-3 col-form-label">Vessel</label>
                                                     <div class="col-sm-9">
-                                                        <select class="form-control select2" name="btop_plannings.vessel_id" id="vessel_id">
+                                                        <select class="form-control select2" name="plans.vessel_id" id="vessel_id">
                                                             <option value="">--Select--</option>
                                                             @if(isset($vessels) && !empty($vessels))
                                                             @foreach($vessels as $vessel)
@@ -66,10 +66,10 @@
                                             <div class="col-2"></div>
                                             <div class="col-4">
                                                 <div class="form-group row">
-                                                    <label for="btop_plannings.date_from" class="col-sm-3 col-form-label">From</label>
+                                                    <label for="plans.date_from" class="col-sm-3 col-form-label">From</label>
                                                     <div class="col-sm-9">
                                                         <div class="input-group date" id="from" data-target-input="nearest">
-                                                            <input type="text" class="form-control datetimepicker-input" data-target="#from" name="btop_plannings.date_from" id="date_from" readonly/>
+                                                            <input type="text" class="form-control datetimepicker-input" data-target="#from" name="plans.date_from" id="date_from" readonly/>
                                                             <div class="input-group-append" data-target="#from" data-toggle="datetimepicker">
                                                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                             </div>
@@ -82,9 +82,9 @@
                                         <div class="row">
                                             <div class="col-4">
                                                 <div class="form-group row">
-                                                    <label for="btop_plannings.berth_location_id" class="col-sm-3 col-form-label">Berth</label>
+                                                    <label for="plans.origin_id" class="col-sm-3 col-form-label">Berth</label>
                                                     <div class="col-sm-9">
-                                                        <select class="form-control select2" name="btop_plannings.berth_location_id" id="berth_location_id">
+                                                        <select class="form-control select2" name="plans.origin_id" id="origin_id">
                                                             <option value="">--Select--</option>
                                                             @if(isset($berths) && !empty($berths))
                                                             @foreach($berths as $berth)
@@ -98,10 +98,10 @@
                                             <div class="col-2"></div>
                                             <div class="col-4">
                                                 <div class="form-group row">
-                                                    <label for="btop_plannings.date_to" class="col-sm-3 col-form-label">To</label>
+                                                    <label for="plans.date_to" class="col-sm-3 col-form-label">To</label>
                                                     <div class="col-sm-9">
                                                         <div class="input-group date" id="to" data-target-input="nearest">
-                                                            <input type="text" class="form-control datetimepicker-input" data-target="#to" name="btop_plannings.date_to" id="date_to" readonly/>
+                                                            <input type="text" class="form-control datetimepicker-input" data-target="#to" name="plans.date_to" id="date_to" readonly/>
                                                             <div class="input-group-append" data-target="#to" data-toggle="datetimepicker">
                                                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                             </div>
@@ -114,9 +114,9 @@
                                         <div class="row">
                                             <div class="col-4">
                                                 <div class="form-group row">
-                                                    <label for="btop_plannings.cargo_id" class="col-sm-3 col-form-label">Cargo</label>
+                                                    <label for="plans.cargo_id" class="col-sm-3 col-form-label">Cargo</label>
                                                     <div class="col-sm-9">
-                                                        <select class="form-control select2" name="btop_plannings.cargo_id" id="cargo_id">
+                                                        <select class="form-control select2" name="plans.cargo_id" id="cargo_id">
                                                             <option value="">--Select--</option>
                                                             @if(isset($cargos) && !empty($cargos))
                                                             @foreach($cargos as $cargo)

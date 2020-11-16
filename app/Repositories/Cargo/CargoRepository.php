@@ -78,6 +78,7 @@ Class CargoRepository {
      */
     public function deleteCargo($allInput){
         global $catchErrorMsg;
+        global $noRecordMsg;
         $fetch['status'] =true;
         $fetch['result']=[];   
         try{

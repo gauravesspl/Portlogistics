@@ -38,5 +38,6 @@ return [
     'cache_time' => 100000,  //in seconds
     'exception_msg' => 'Something Went Wrong!',
     'empty_err_msg' => 'No Record Found!',
-    'id_validation_rules' => 'required|integer|gt:0'
+    'id_validation_rules' => 'required|integer|gt:0',
+    'plot_validation_msg' => 'Please provide a correct plot no.'
 ];

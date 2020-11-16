@@ -29,7 +29,7 @@
                     </div>
                         <form id="addTruckForm" method="post" action="{{ url('plan/truck') }}">
                             @csrf
-                            <input type="hidden" name="planning_id" id="planning_id" value="{{ $response['planning_details']['result']['id'] }}">
+                            <input type="hidden" name="plan_id" id="plan_id" value="{{ $response['planning_details']['result']['id'] }}">
                             <div class="card-body">
                                 <table class="table">
                                     <thead>

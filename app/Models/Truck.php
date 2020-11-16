@@ -44,7 +44,7 @@ class Truck extends Model
         return $this->belongsTo('App\Models\TruckCompany');
     }
     public function plannedTrucks() {
-        return $this->hasMany('App\Models\BtopPlannedTruck');
+        return $this->hasMany('App\Models\PlanTruck');
 
     }
     

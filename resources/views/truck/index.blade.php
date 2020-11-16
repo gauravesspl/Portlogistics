@@ -36,7 +36,8 @@
                         </div>
                     <!-- /.card-header -->
                     <div class="col-md-12 table p-4">
-                        <table id="trucks" class="table  table-striped" summary="Truck List">
+                        <table id="trucks" class="table  table-striped">
+                            <caption class="d-none">Truck List</caption>
                             <thead style="text-align: center;">
                                 <tr>
                                     <th scope="col">Truck/Dumper No</th>

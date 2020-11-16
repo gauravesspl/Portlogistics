@@ -1,9 +1,9 @@
-<html>
+<!DOCTYPE html>
+<html lang="en-US">
   <head>
     <title>Page Not Found</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600;900&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/4b9ba14b0f.js" crossorigin="anonymous"></script>
-  </head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">  </head>
   <style>
     body {
       background-color: #95c2de;
@@ -23,7 +23,7 @@
       left: 20%;
       top: 8%;
     }
-    .far {
+    .fa {
       position: absolute;
       font-size: 8.5rem;
       left: 42%;
@@ -64,7 +64,7 @@
   <body>
     <div class="mainbox">
       <div class="err">4</div>
-      <i aria-hidden="true" class="far fa-question-circle fa-spin"></i>
+      <i aria-hidden="true" class="fa fa-question-circle-o fa-spin"></i>
       <div class="err2">4</div>
       <div class="msg">
           <h2> Sorry!Page Not Found</h2>

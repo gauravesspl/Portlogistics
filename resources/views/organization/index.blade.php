@@ -30,7 +30,7 @@
                                         <h4>Name and Information &nbsp;&nbsp;
                                             
                                                 <button type="button" class="btn tooltips" id="orgNameEdit" name="orgNameEdit" visibility="hidden" title="Update Organization" data-target="right"><i class="fas fa-pencil-alt" aria-hidden="true"></i></button>
-                                                <button type="submit" class="btn tooltips" id="orgNameSave" name="orgNameSave" visibility="hidden" title="Update Organization" data-target="right" aria-hidden="true"><i class="fas fa-save"></i></button>
+                                                <button type="submit" class="btn tooltips" id="orgNameSave" name="orgNameSave" visibility="hidden" title="Update Organization" data-target="right"><i class="fas fa-save" aria-hidden="true"></i></button>
                                            
                                         </h4>    
                                     </div>
@@ -116,14 +116,15 @@
                                     <div class="col-sm-6">
                                         <h4>Currency and Rates &nbsp;&nbsp;
                                           
-                                                <button type="button" class="btn tooltips" id="currencyEdit" name="currencyEdit" title="Update Organization Currency Rate" data-target="right"><i class="fas fa-pencil-alt"></i></button>
-                                                <button type="submit" class="btn tooltips" id="currencySave" name="currencySave" visibility="hidden" title="Update Organization Currency Rate" data-target="right"><i class="fas fa-save"></i></button>
+                                                <button type="button" class="btn tooltips" id="currencyEdit" name="currencyEdit" title="Update Organization Currency Rate" data-target="right"><i class="fas fa-pencil-alt" aria-hidden="true"></i></button>
+                                                <button type="submit" class="btn tooltips" id="currencySave" name="currencySave" visibility="hidden" title="Update Organization Currency Rate" data-target="right"><i class="fas fa-save" aria-hidden="true"></i></button>
                                             
                                         </h4>                                       
                                     </div>
                                 </div>
                                 <!-- /.currency and rates card header -->
                                 <fieldset id="disableCurrency" disabled="disabled">
+                                    <legend></legend>
                                     <!-- /.currency and rates card body -->
                                     <div class="card-body">
                                     
