@@ -85,6 +85,8 @@
         </script>
         <script src="{{js('app_js')}}"></script>
         <script src="{{js('bootstrap_multiselect_js')}}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha256-t9UJPrESBeG2ojKTIcFLPGF7nHi2vEc7f5A2KpH/UBU=" crossorigin="anonymous"></script>
+
         @stack('script')
     </body>
 </html>
