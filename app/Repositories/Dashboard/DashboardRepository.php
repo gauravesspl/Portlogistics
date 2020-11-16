@@ -25,7 +25,8 @@ Class DashboardRepository
 		$dataArr['status'] = true;
 
 		$challans = new Challan();
-		$challans = $challans->leftJoin('btop_plannings','challans.btop_planning_id','btop_plannings.id');
+		$challans = $challans->leftJoin('btop_plannings','challans.btop_planning_id','btop_plannings.id')
+			->where('challans.status', 2);
 		if (array_key_exists('vessel', $allInput) && $allInput['vessel'] != 'all') {
 			$challans = $challans->whereIn('btop_plannings.vessel_id',$allInput['vessel']);
 		}
@@ -52,19 +53,16 @@ Class DashboardRepository
 		foreach ($shifts as $shift) {
 			$c =clone $challans;
 		$dataArr['ttc'][$shift->type] = $c->where('shift_id', $shift->id)
-					->where('challans.status', 2)
 					->whereNotNull('unloaded_by')
 					->where('type', 1)
 					->count();
 					$d =clone $challans;
 				$dataArr['ntu'][$shift->type] = $d->where('shift_id', $shift->id)
-					->where('challans.status', 2)
 					->whereNotNull('unloaded_by')
 					->where('type', 1)
 					->distinct('truck_id')->count();
 					$e =clone $challans;
 				$dataArr['ca'][$shift->type] = $e->where('shift_id', $shift->id)
-					->where('challans.status', 2)
 					->where('is_deposit', 1)
 					->where('type', 1)
 					->count();
