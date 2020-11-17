@@ -8,7 +8,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <div class="content-header"></div>
+    <div class="content-header"></div> 
     <!-- /.content-header -->
     @if($status!='failed')
     <!-- Main content -->
@@ -117,5 +117,6 @@
 
 @endsection
 @push('script')
+<script src="{{ js('support') }}"></script>
 <script src="{{ js('truck_js') }}"></script>
 @endpush
