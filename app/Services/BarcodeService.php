@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Milon\Barcode\DNS1D;
 use Illuminate\Support\Facades\Storage;
+use Exception;
 
 class BarcodeService {
     
