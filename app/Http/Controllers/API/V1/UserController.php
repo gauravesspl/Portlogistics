@@ -57,7 +57,7 @@ class UserController extends BaseController {
         }
         $response = $this->userRepository->getUsers($param);
         $response['privileges'] =   isset( $inputs['privilege_array'] )? $inputs['privilege_array'] : "";
-        if($response['status'] == false){
+        if(!$response['status']){
            return $this->sendError($response,'No record found !!!', $param);
         }
         return $this->sendResponse($response,'User data fetched sucessfully', $param);
@@ -114,7 +114,7 @@ class UserController extends BaseController {
         $userResponse = []; //Intialize Response
         $isUniqueEmailId = $this->validateEmail($inputs);
         if($isUniqueEmailId) {
-            $response = $this->userRepository->saveUser($inputs);
+            $response = $this->userRepository->saveUser($inputs);dd($response);
             if(!$response['status']) {
                 $userResponse['status'] = false;
                 $userResponse['message'] = 'Some error occured during saving information';
@@ -259,16 +259,12 @@ class UserController extends BaseController {
     
     public function validateEmail($inputs) {
         $validateInput = ['email' => $inputs['email'], 'connection' => $inputs['connection']];
+        $status = true;
         $response = $this->userRepository->getUser($validateInput);
-        if($response['status']) {
-            if(isset($inputs['id']) && !empty($inputs['id']) && ($response['result']->id == $inputs['id'])) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return true;
+        if(($response['status']) && (!isset($inputs['id']) || (isset($inputs['id']) && !empty($inputs['id']) && ($response['result']->id != $inputs['id'])))) {
+            $status = false;
         }
+        return $status;
     }
     
     //Get Department, Role, City, State, COuntry Records for Add/Edit User
