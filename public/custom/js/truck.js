@@ -48,33 +48,35 @@ $(function() {
             }else{
                 URL =  APP_URL+"/truck";
                 type = "POST";
-            }  
-            $.ajax({
-                type: type,
-                url: URL,
-                data: $(form).serialize(),
-                success: function(response) {
-                    if(response.status_code == 200){
-                        Swal.fire({
-                             position: 'center',
-                             icon: 'success',
-                              title: response.message,
-                             showConfirmButton: false,
-                             timer: 1500
-                        });
-                        window.location.reload();
-                    }else{
-                        var msg='';
-                        $.each(response.result, function (k,v)  {
-                            if(msg == '')
-                                msg = v;
-                            else
-                                msg = msg+', '+v;
-                        });
-                        Swal.fire("Error!", "'"+msg+"'", "error");
-                    }
-                }            
-            });
+            }      
+            var data = $(form).serialize();
+            customAjaxCall(URL,data,addTruckSuccess,addTruckFailure,type);
+            function addTruckSuccess(response)
+            {
+                if(response.status_code == 200){
+                    Swal.fire({
+                         position: 'center',
+                         icon: 'success',
+                          title: response.message,
+                         showConfirmButton: false,
+                         timer: 1500
+                    });
+                    window.location.reload();
+                }else{
+                    var msg='';
+                    $.each(response.result, function (k,v)  {
+                        if(msg == '')
+                            msg = v;
+                        else
+                            msg = msg+', '+v;
+                    });
+                    Swal.fire("Error!", "'"+msg+"'", "error");
+                }
+            }
+            function addTruckFailure(response)
+            {
+                Swal.fire('Unable to get data Contact Support');        
+            }            
         }    
     });
     
