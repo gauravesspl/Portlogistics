@@ -20,7 +20,7 @@ Route::group([
 ], function () {
 
     Route::post('login', 'ManageJwtTokenController@loginRequestToken');
-    Route::post('token', 'ManageJwtTokenController@generateToken');
+    Route::post('token', 'ManageJwtTokenController@loginRequestToken');
 });
 
 Route::group([
