@@ -123,7 +123,7 @@ class ManageJwtTokenController extends BaseController
             return $this->sendError(['Failed to update token'],'Failed to update token');
             }
         }
-        catch (TokenInvalidException $e) {
+        catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e){
             return $this->sendError(['The token is invalid'],'The token is invalid');
         }
         return $this->respondWithToken($refreshed);

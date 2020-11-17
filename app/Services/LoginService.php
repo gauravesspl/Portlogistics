@@ -8,7 +8,7 @@ use JWTException;
 use Log;
 use JWTAuth;
 use App\Repositories\User\UserRepository;
-
+use Exception;
 
 class LoginService
 {
