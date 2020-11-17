@@ -57,7 +57,7 @@ class UserController extends BaseController {
         }
         $response = $this->userRepository->getUsers($param);
         $response['privileges'] =   isset( $inputs['privilege_array'] )? $inputs['privilege_array'] : "";
-        if(!$response['status'] ){
+        if($response['status'] == false){
            return $this->sendError($response,'No record found !!!', $param);
         }
         return $this->sendResponse($response,'User data fetched sucessfully', $param);
@@ -115,7 +115,7 @@ class UserController extends BaseController {
         $isUniqueEmailId = $this->validateEmail($inputs);
         if($isUniqueEmailId) {
             $response = $this->userRepository->saveUser($inputs);
-            if($response['status'] == false) {
+            if(!$response['status']) {
                 $userResponse['status'] = false;
                 $userResponse['message'] = 'Some error occured during saving information';
             }
@@ -135,7 +135,7 @@ class UserController extends BaseController {
         }
         
         //Return Response
-        if($userResponse['status'] == true) {
+        if($userResponse['status']) {
             return $this->sendResponse([],$userResponse['message'],$auth);
         } else {
             return $this->sendError($userResponse['message'],$userResponse['message'],$auth);
@@ -221,7 +221,6 @@ class UserController extends BaseController {
     **/
     public function update(UserRequest $request) {
         $inputs = $request->all();
-        $id = $inputs['id'];
         $auth  = $this->getAuth($inputs);
         $inputs['updated_by'] = $auth['user_id'];
         $inputs['connection'] = $auth['connection'];
@@ -229,12 +228,10 @@ class UserController extends BaseController {
         $isUniqueEmailId = $this->validateEmail($inputs);
         if($isUniqueEmailId) {
             $response = $this->userRepository->saveUser($inputs);
-            if($response['status'] == false) {
+            if(!$response['status']) {
                 $userResponse['status'] = false;
                 $userResponse['message'] = 'Some error occured during saving information';
             }
-            //Send email to new user
-            $user = $response['result'];
             $userResponse['status'] = true;
             $userResponse['message'] = 'User information saved successfully';
         } else {
@@ -243,7 +240,7 @@ class UserController extends BaseController {
         }
         
         //Return Response
-        if($userResponse['status'] == true) {
+        if($userResponse['status']) {
             return $this->sendResponse([],$userResponse['message'],$auth);
         } else {
             return $this->sendError($userResponse['message'],$userResponse['message'],$auth);
@@ -253,7 +250,7 @@ class UserController extends BaseController {
     public function getData($inputs) {
         $auth = $this->getAuth($inputs);
         $response = $this->userRepository->getUser($inputs);
-        if ($response['status'] == true) {
+        if ($response['status']) {
             return $this->sendResponse($response['result'], 'Record Fetched Sucessfully', $auth);
         } else {
             return $this->sendError($response['message'], $response['message'], $auth);
@@ -264,7 +261,11 @@ class UserController extends BaseController {
         $validateInput = ['email' => $inputs['email'], 'connection' => $inputs['connection']];
         $response = $this->userRepository->getUser($validateInput);
         if($response['status']) {
-            return isset($inputs['id']) && !empty($inputs['id']) && ($response['result']->id == $inputs['id']);
+            if(isset($inputs['id']) && !empty($inputs['id']) && ($response['result']->id == $inputs['id'])) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return true;
         }
