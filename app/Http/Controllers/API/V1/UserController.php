@@ -108,11 +108,37 @@ class UserController extends BaseController {
     public function store(UserRequest $request) {
         $inputs = $request->all();
         $auth  = $this->getAuth($inputs);
-        $response = $this->save($inputs, $auth);
-        if($response['status']) {
-            return $this->sendResponse([],$response['message'],$auth);
+        $inputs['is_active'] = '0';
+        $inputs['created_by'] = $auth['user_id'];
+        $inputs['connection'] = $auth['connection'];
+        $userResponse = []; //Intialize Response
+        $isUniqueEmailId = $this->validateEmail($inputs);
+        if($isUniqueEmailId) {
+            $response = $this->userRepository->saveUser($inputs);
+            if($response['status'] == false) {
+                $userResponse['status'] = false;
+                $userResponse['message'] = 'Some error occured during saving information';
+            }
+            //Send email to new user
+            $user = $response['result'];
+            $data = ['user_id' => $user->id, 'name' => $user->first_name.' '.$user->last_name, 'template' => 'register', 'email' => $user->email];
+            $response = $this->sendEmailLibrary->modify($data);
+            if($response['status'] == 'failed') {
+                $userResponse['status'] = false;
+                $userResponse['message'] = 'Error in sending email';
+            }
+            $userResponse['status'] = true;
+            $userResponse['message'] = 'User information saved successfully';
         } else {
-            return $this->sendError($response['message'],$response['message'],$auth);
+            $userResponse['status'] = false;
+            $userResponse['message'] = 'Email id already exists';
+        }
+        
+        //Return Response
+        if($userResponse['status'] == true) {
+            return $this->sendResponse([],$userResponse['message'],$auth);
+        } else {
+            return $this->sendError($userResponse['message'],$userResponse['message'],$auth);
         }
     }
     
@@ -195,33 +221,11 @@ class UserController extends BaseController {
     **/
     public function update(UserRequest $request) {
         $inputs = $request->all();
+        $id = $inputs['id'];
         $auth  = $this->getAuth($inputs);
-        $response = $this->save($inputs, $auth);
-        if($response['status']) {
-            return $this->sendResponse([],$response['message'],$auth);
-        } else {
-            return $this->sendError($response['message'],$response['message'],$auth);
-        }
-    }
-    
-    /**
-        @description : Add/Update User Details
-        @author : Madhusmita Das
-        @param : {"email", "first_name", "last_name", "mobile_no", "address1", "address2", "country_id", "pin_code", "state_id", "city_id", "department_id", "role_id"}
-        @return - array
-        @created_on - 09/09/2020
-    **/
-    public function save($inputs, $auth){
-        $id = (isset($inputs['id']) && !empty($inputs['id'])) ? $inputs['id'] : '';
-        if(!empty($id)) {
-            $inputs['updated_by'] = $auth['user_id'];
-            $inputs['connection'] = $auth['connection'];
-        } else {
-            $inputs['is_active'] = '0';
-            $inputs['created_by'] = $auth['user_id'];
-            $inputs['connection'] = $auth['connection'];
-            unset($inputs['id']);
-        }
+        $inputs['updated_by'] = $auth['user_id'];
+        $inputs['connection'] = $auth['connection'];
+        $userResponse = []; //Intialize Response
         $isUniqueEmailId = $this->validateEmail($inputs);
         if($isUniqueEmailId) {
             $response = $this->userRepository->saveUser($inputs);
@@ -231,22 +235,18 @@ class UserController extends BaseController {
             }
             //Send email to new user
             $user = $response['result'];
-            if(empty($id)) {
-                $data = ['user_id' => $user->id, 'name' => $user->first_name.' '.$user->last_name, 'template' => 'register', 'email' => $user->email];
-                $response = $this->sendEmailLibrary->modify($data);
-                if($response['status'] == 'failed') {
-                    $userResponse['status'] = false;
-                    $userResponse['message'] = 'Error in sending email';
-                    return $userResponse;
-                }
-            }
             $userResponse['status'] = true;
             $userResponse['message'] = 'User information saved successfully';
-            return $userResponse;
         } else {
             $userResponse['status'] = false;
             $userResponse['message'] = 'Email id already exists';
-            return $userResponse;
+        }
+        
+        //Return Response
+        if($userResponse['status'] == true) {
+            return $this->sendResponse([],$userResponse['message'],$auth);
+        } else {
+            return $this->sendError($userResponse['message'],$userResponse['message'],$auth);
         }
     }
     
