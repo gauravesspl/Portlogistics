@@ -30,10 +30,10 @@
                                 <form action="{{url('csv-export')}}" method="post">
                                     @csrf
                                     <input type="hidden" name="key" value = "Cargo">
-                                    <button  type="submit" class="btn btn-primary float-right tooltips "><i class="fa fa-file-excel"></i> Export</button>
+                                    <button  type="submit" class="btn btn-primary float-right tooltips "><i aria-hidden="true" class="fa fa-file-excel"></i> Export</button>
                                 </form>
                               
-                                <button id="add_cargo_btn" type="button" class="btn btn-success tooltips " ><i class="fa fa-plus"></i> Add New Cargo</button>
+                                <button id="add_cargo_btn" type="button" class="btn btn-success tooltips " ><i aria-hidden="true" class="fa fa-plus"></i> Add New Cargo</button>
                                
                             </div> 
                             </div>
@@ -52,7 +52,7 @@
                                 <th scope="column">Action</th>
                             </tr>
                         </thead>
-                        <tbody align="center">
+                        <tbody>
                         @foreach($result['cargo'] as $result)
                         <tr>
                             
@@ -61,9 +61,9 @@
                             <td hidden="">{{$result->id}}</td>      
                             <td style="text-align: center;">
                                 
-                                    <a href="javascript:void(0);" onclick="editCargo({{ ($result->id)}})" data-toggle="tooltip" class="edit tooltips" title="Update Cargo"><i class="fas fa-2x fa-edit text-success" aria-hidden="true"></i></a> &nbsp;&nbsp;
+                                    <a href="javascript:void(0);" onclick="editCargo({{ ($result->id)}})" data-toggle="tooltip" class="edit tooltips" title="Update Cargo"><i aria-hidden="true" class="fas fa-2x fa-edit text-success" aria-hidden="true"></i></a> &nbsp;&nbsp;
                              
-                                    <i class='fas fa-2x fa-trash text-danger tooltips delete' data-placement='top' title='Delete Cargo' style='cursor:pointer'  aria-hidden="true"></i>
+                                    <i aria-hidden="true" class='fas fa-2x fa-trash text-danger tooltips delete' data-placement='top' title='Delete Cargo' style='cursor:pointer'  aria-hidden="true"></i>
                              
                             </td>    
                          </tr>
@@ -109,8 +109,8 @@
               
             </div>
             <div class="modal-footer justify-content">
-              <button type="button" class="icon-button" data-dismiss="modal" title="Cancel"><i class="fas fa-2x fa-times-circle tooltips text-danger" aria-hidden="true"></i></button>
-              <button id="btncargo" type="submit" class="icon-button" title="Save"><i class="fas fa-2x fa-save tooltips text-success" aria-hidden="true"></i></button>
+              <button type="button" class="icon-button" data-dismiss="modal" title="Cancel"><i aria-hidden="true" class="fas fa-2x fa-times-circle tooltips text-danger" aria-hidden="true"></i></button>
+              <button id="btncargo" type="submit" class="icon-button" title="Save"><i aria-hidden="true" class="fas fa-2x fa-save tooltips text-success" aria-hidden="true"></i></button>
             </div>
               </form>
           </div>
