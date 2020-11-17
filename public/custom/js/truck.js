@@ -114,59 +114,59 @@ function editTruck(id) {
     $("#modal-default").modal("show");
     var validator = $( "#add_trucks" ).validate();       
     validator.resetForm();
-    $.ajax({
-        url: APP_URL+"/truck/"+id,
-        type: "GET",
-        dataType: "json",
-        success: function(response) {
-            if(response.status == 'success'){
-                $("#truck_no").val(response.result.truck_no);
-                $("#truck_company_id").val(response.result.truck_company_id);
-                $("#hidden_id").val(response.result.id);
-            }else{
-                var msg='';
-                $.each(response.result, function (k,v)  {
-                    if(msg == '')
-                        msg = v;
-                    else
-                        msg = msg+', '+v;
-                });
-                Swal.fire("Error!", "'"+msg+"'", "error");
-            }
-        },
-        error: function() {
-            Swal.fire('Unable to get data Contact Support');
+    var editTruckUrl = APP_URL+"/truck/"+id;
+    var data = {};
+    customAjaxCall(editTruckUrl,data,editTruckSuccess,editTruckFailure,'GET');
+    function editTruckSuccess(response)
+    {
+        if(response.status == 'success'){
+            $("#truck_no").val(response.result.truck_no);
+            $("#truck_company_id").val(response.result.truck_company_id);
+            $("#hidden_id").val(response.result.id);
+        }else{
+            var msg='';
+            $.each(response.result, function (k,v)  {
+                if(msg == '')
+                    msg = v;
+                else
+                    msg = msg+', '+v;
+            });
+            Swal.fire("Error!", "'"+msg+"'", "error");
         }
-    });
+    }
+    function editTruckFailure(response)
+    {
+        Swal.fire('Unable to get data Contact Support');        
+    }
     return false;
  } 
 
  //to delete truck
  function deleteTruck(){
-    $.ajax({
-        url: APP_URL+"/truck/"+$("#truck_id").val(),
-        type: "DELETE",
-        dataType: "json",
-        success: function(response) {
-            if(response.status == 'success')
-            {
-                Swal.fire("Deleted!", response.message, "success");
-                window.location.reload();
-            }
-            else
-            {
-                 var msg='';
-              $.each(response.result, function (k,v)  {
-               if(msg == '')
-                  msg = v;
-               else
-                  msg = msg+', '+v;
-              });
-              Swal.fire("Error!", "'"+msg+"'", "error");
-            }
-        },
-        error: function() {
-            toastr.error('Unable to delete Contact Support');
+    var delTruckUrl = APP_URL+"/truck/"+$("#truck_id").val();
+    var data = {};
+    customAjaxCall(delTruckUrl,data,delTruckSuccess,delTruckFailure,'DELETE');
+    function delTruckSuccess(response)
+    {
+        if(response.status == 'success')
+        {
+            Swal.fire("Deleted!", response.message, "success");
+            window.location.reload();
         }
-    });
+        else
+        {
+             var msg='';
+          $.each(response.result, function (k,v)  {
+           if(msg == '')
+              msg = v;
+           else
+              msg = msg+', '+v;
+          });
+          Swal.fire("Error!", "'"+msg+"'", "error");
+        }        
+    }
+    function delTruckFailure(response)
+    {
+        toastr.error('Unable to delete Contact Support');        
+    }
 }
