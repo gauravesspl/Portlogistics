@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-         Commands\DeleteExportFolderCron::class,
+         // Commands\DeleteExportFolderCron::class,
     ];
 
     /**
@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         //$schedule->command('delete:csv_folder')->everyMinute();
-        $schedule->command('delete:csv_folder')->dailyAt('00:05'); // Run at 12:05 AM 
+        // $schedule->command('delete:csv_folder')->dailyAt('00:05'); // Run at 12:05 AM 
     }
 
     /**
