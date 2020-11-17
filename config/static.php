@@ -42,7 +42,7 @@ return [
         'roleprivileges_js'=>'roleprivileges.js',
         'truck_js' => 'truck.js',
         'truck_company_js' => 'truck_company.js',
-		'consignee_js'=>'consignee.js',
+	'consignee_js'=>'consignee.js',
         'profile_js' => 'profile.js',
         'dashboard_js' => 'dashboard.js',
         'department_js' => 'department.js',
@@ -51,5 +51,6 @@ return [
         'add_truck_js' => 'add_truck.js',
         'add_plan_js' => 'add_plan.js',
         'bootstrap_multiselect_js'=>'bootstrap-multiselect.js',
+        'support' => 'support.js'
     )
 ];
