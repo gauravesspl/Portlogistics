@@ -18,9 +18,13 @@ class ManageJwtTokenController extends BaseController
 {
     
     protected $loginService;
-    
+     
     public function __construct(LoginService $loginService)
     {
+        $this->inactiveAccount = 'This account is not activated. Please contact the administrator.';
+        $this->invalidUpdateToken = 'The token is invalid';
+        $this->failedUpdateToken = 'Failed to update token';
+        $this->successUpdateToken = 'Token generated successfully';
         $this->loginService = $loginService;
     }
     
@@ -51,18 +55,18 @@ class ManageJwtTokenController extends BaseController
     {
         $user = $request->all()['user_array'];
         if(!$user['is_active']) {
-            return $this->sendError(['This account is not activated. Please contact the administrator.'],'This account is not activated. Please contact the administrator.');
+            return $this->sendError([$this->inactiveAccount],$this->inactiveAccount);
         }
         $userToken = $this->loginService->generateTokenUsingLoginId($request);
-        if ($userToken['status'] == false) {
-            return $this->sendError(['Failed to update token'],'Failed to update token');
+        if (!$userToken['status']) {
+            return $this->sendError([$this->failedUpdateToken],$this->failedUpdateToken);
         }
         $status = $this->loginService->saveUpdateToken($userToken['token']);
         if (!$status) {
-            return $this->sendError(['Failed to update token'],'Failed to update token');
+            return $this->sendError([$this->failedUpdateToken],$this->failedUpdateToken);
         }
         $token = array('token'=>$userToken['token'],'username'=>$userToken['username']);
-        return $this->sendResponse( $token, 'Token generated successfully.');
+        return $this->sendResponse( $token, $this->successUpdateToken);
     }
          
     
@@ -80,11 +84,11 @@ class ManageJwtTokenController extends BaseController
             $refreshed = JWTAuth::refresh($token);
             $status    = $this->loginService->saveUpdateToken($refreshed);
             if (!$status) {
-            return $this->sendError(['Failed to update token'],'Failed to update token');
+            return $this->sendError([$this->failedUpdateToken],$this->failedUpdateToken);
             }
         }
         catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-            return $this->sendError(['The token is invalid'],'The token is invalid');
+            return $this->sendError($this->invalidUpdateToken,$this->invalidUpdateToken);
         }
         return $this->respondWithToken($refreshed);
     }
