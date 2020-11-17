@@ -18,7 +18,7 @@ class BarcodeService {
             $imgPath = $directory . $challan['challan_no'] . '.png';
             Storage::put($imgPath, base64_decode($barcodeImg));
             $response['barcode_path'] = 'storage/' . $imgPath;
-        } catch (Exception $ex) {
+        } catch (Exception $e) {
             Log::error($e->getMessage());
             $response['message'] = $e->getMessage();
             $response['status'] = false;
