@@ -13,6 +13,7 @@ use App\Http\Requests\UserLoginRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\GenerateTokenRequest;
 
+
 class ManageJwtTokenController extends BaseController
 {
     
@@ -63,48 +64,7 @@ class ManageJwtTokenController extends BaseController
         $token = array('token'=>$userToken['token'],'username'=>$userToken['username']);
         return $this->sendResponse( $token, 'Token generated successfully.');
     }
-     
-    /**
-     * @OA\Post(
-     ** path="/token",
-     *  tags={"Auth"},
-     *  summary="Login",
-     *  @OA\RequestBody(
-     *  required=true,
-     *  description="Pass user credentials",
-     *  @OA\JsonContent(
-     *  required={"email","password"},
-     *  @OA\Property(property="email", type="string", format="email", example="port@esspl.com"),
-     *  @OA\Property(property="password", type="string", format="password", example="fdf59c3ba5873c1787f874e490bc688e"),
-     *  ),
-     * ),
-     *  @OA\Response(
-     *  response=200,
-     *  description="Success",
-     *  @OA\MediaType(
-     *  mediaType="application/json",
-     *  )
-     *  ),
-     *)
-     **/
-    public function generateToken(Request $request)
-    {
-        $user = $request->all()['user_array'];
-        if(!$user['is_active']) {
-            return $this->sendError(['This account is not activated. Please contact the administrator.'],'This account is not activated. Please contact the administrator.');
-        }
-        $userToken = $this->loginService->generateTokenUsingLoginId($request);
-        if ($userToken['status'] == false) {
-            return $this->sendError(['Failed to update token'],'Failed to update token');
-        }
-        $status = $this->loginService->saveUpdateToken($userToken['token']);
-        if (!$status) {
-            return $this->sendError(['Failed to update token'],'Failed to update token');
-        }
-       $token = array('token'=>$userToken['token'],'username'=>$userToken['username']);
-        return $this->sendResponse($token, 'Token generated successfully.');
-    }
-    
+         
     
     /**
      * Refresh Token by token
